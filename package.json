@@ -4,8 +4,18 @@
   "description": "A very basic dice betting API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./build && tsc --build",
+    "start": "npm run build && node build/index.js",
+    "start:dev": "nodemon"
   },
   "author": "Daniel Gasparotto",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^17.0.2",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
 }
