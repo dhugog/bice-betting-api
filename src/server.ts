@@ -62,7 +62,7 @@ const rootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLInt }
       },
-      resolve: (_, { id }) => UserService.getUser(id)
+      resolve: (_, { id }: { id: number }) => UserService.getUser(id)
     },
     bets: {
       type: new GraphQLList(betType),
@@ -73,14 +73,14 @@ const rootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLInt }
       },
-      resolve: (_, { id }) => BetService.getBet(id)
+      resolve: (_, { id }: { id: number }) => BetService.getBet(id)
     },
     bestBetPerUser: {
       type: new GraphQLList(betType),
       args: {
         limit: { type: GraphQLInt }
       },
-      resolve: (_, { limit }) => BetService.getBestBetPerUser(limit)
+      resolve: (_, { limit }: { limit: number }) => BetService.getBestBetPerUser(limit)
     },
   }
 })
@@ -95,7 +95,7 @@ const rootMutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         balance: { type: GraphQLFloat }
       },
-      resolve: (_, args) => UserService.createUser(args)
+      resolve: (_, args: { name: string, balance: number }) => UserService.createUser(args)
     },
     placeBet: {
       type: betType,
@@ -104,7 +104,7 @@ const rootMutation = new GraphQLObjectType({
         betAmount: { type: GraphQLFloat },
         chance: { type: GraphQLFloat },
       },
-      resolve: (_, { userId, betAmount, chance }) => BetService.placeBet(userId, betAmount, chance)
+      resolve: (_, { userId, betAmount, chance }: { userId: number, betAmount: number, chance: number }) => BetService.placeBet(userId, betAmount, chance)
     }
   }
 })
