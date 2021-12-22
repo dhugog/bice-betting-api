@@ -9,11 +9,12 @@ class BetRepository {
   }
 
   async getBetList(): Promise<Bet[]> {
-    return Bet.findAll();
+    return Bet.findAll({ include: [User] });
   }
 
   async getBestBetPerUser(limit: number): Promise<Bet[]> {
     return Bet.findAll({
+      include: [User],
       where: {
         id: {
           [Op.in]: [Sequelize.literal('SELECT id FROM (SELECT id, MAX(betAmount * payout) FROM Bets WHERE win = 1 GROUP BY userId)')]

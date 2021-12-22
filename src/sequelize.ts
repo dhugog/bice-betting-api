@@ -5,5 +5,6 @@ import { User } from './app/models/User';
 export const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './database.sqlite',
-  models: [User, Bet]
+  models: [User, Bet],
+  logging: false
 });

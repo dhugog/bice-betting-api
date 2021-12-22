@@ -3,6 +3,14 @@ import BetRepository from "../repositories/BetRepository";
 import UserRepository from "../repositories/UserRepository";
 
 class BetService {
+  async getBet(id: number): Promise<Bet | null> {
+    return BetRepository.getBet(id);
+  }
+
+  async getBetList(): Promise<Bet[]> {
+    return BetRepository.getBetList();
+  }
+
   async placeBet(userId: number, betAmount: number, chance: number): Promise<Bet> {
     const user = await UserRepository.getUser(userId);
 
@@ -17,7 +25,7 @@ class BetService {
     user.balance -= betAmount;
 
     const result = Math.random() * 100;
-    const payout = (100 - chance) / 10 * 1.5;
+    const payout = this.calculatePayout(chance);
     const win = result < chance;
 
     if (win) {
@@ -31,6 +39,16 @@ class BetService {
 
   async getBestBetPerUser(limit: number): Promise<Bet[]> {
     return BetRepository.getBestBetPerUser(limit);
+  }
+
+  private calculatePayout(chance: number): number {
+    let payout = (100 - chance) / 10;
+
+    if (payout <= 1) {
+      payout++;
+    }
+
+    return payout;
   }
 }
 
