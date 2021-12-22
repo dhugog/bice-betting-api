@@ -9,8 +9,8 @@ Make sure you have [Node.js](http://nodejs.org/) installed.
 ```sh
 $ git clone https://github.com/dhugog/dice-betting-api # or clone your own fork
 $ cd dice-betting-api
-$ npm install
-$ npm start
+$ yarn
+$ yarn start
 ```
 
 Your app should now be running on a GraphiQL server at [localhost:4200/graphql](http://localhost:4200/graphql).
